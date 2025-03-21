@@ -18,7 +18,9 @@ pub fn cli(app: &mut tauri::App) -> Result<(), Box<dyn ::std::error::Error>> {
     // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
     let Some(subcommand_matches) = app.cli().matches()?.subcommand else {
         if let Some(help) = app.cli().matches()?.args.get("help") {
-            return Err(Box::from(help.value.as_str().or(Some("Internal Error")).unwrap()));
+            return Err(Box::from(
+                help.value.as_str().or(Some("Internal Error")).unwrap(),
+            ));
         } else {
             return Err(Box::from("Internal Error"));
         }
